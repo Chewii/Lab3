@@ -1,0 +1,74 @@
+package simpleCounter;
+
+
+public class CounterModel implements CounterInterface {
+
+	private int counter = 0;
+	private static int nbrCounters = 0;
+	private int modulus;		
+		
+	
+	public CounterModel(){
+		this(20);
+		nbrCounters ++;
+		
+	}
+	
+	public CounterModel(int modulus){
+		this.modulus = modulus;
+		if(modulus < 0){
+			throw new IllegalArgumentException();
+			
+		}else {
+			getModulus();	
+		}	
+	}
+
+	public int getModulus(){
+		
+		return modulus;		
+	}
+	
+	public int getNbrOfCounter(){
+		nbrCounters--;
+		return nbrCounters;
+	}
+	public void increment() {
+		counter = (counter+1) % modulus;
+	}
+
+	public void decrement() {
+		if(counter == 0){
+			counter = modulus-1;
+
+		} else {
+			counter = (counter-1);
+		}
+	}
+
+	public void reset() {
+		counter = 0;
+	}
+
+	public int getValue() {
+		
+		return counter;
+	}
+	public String toString(){
+		
+		return(getValue()+"");
+	}
+	public boolean equals(){
+		
+		return true;
+	}
+}
+
+/* Del(b)
+ * k kommer skrivas ut som 5
+ * a kommer skrivas ut som 1 eftersom den ökas med ett
+ * b kommer skrivas ut som 0 eftersom ett nytt objekt av b kommer ökas med ett och inte själva b.
+ * 
+ * 
+ * 
+ * */
