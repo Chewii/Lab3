@@ -1,0 +1,50 @@
+package simpleCounter;
+
+
+public class TestCounter {
+
+	public static void main(String[] args){
+
+		System.out.println("Räknare 1 ger : " + counter1());
+		System.out.println("Räknare 2 ger : " + counter2());
+		System.out.println("Räknare 3 ger : " + counter3());
+		CounterModel temp = new CounterModel();
+		System.out.println("Antal räknare : " + temp.getNbrOfCounter());
+
+	
+	}
+	public static int counter1(){
+		
+		CounterModel temp = new CounterModel();
+		temp.decrement();
+		temp.increment();		
+		temp.increment();		
+		temp.increment();
+		System.out.println(temp.toString());
+		return temp.getValue();
+	}
+	
+	public static int counter2(){
+		
+		CounterModel temp = new CounterModel();
+		temp.decrement();
+		temp.increment();		
+		temp.reset();
+		temp.decrement();
+		temp.decrement();
+		return temp.getValue();
+	}
+	
+	public static int counter3(){
+		
+		CounterModel temp = new CounterModel();
+		temp.decrement();
+		temp.increment();		
+		temp.increment();		
+		temp.increment();
+		temp.reset();
+		counter2();
+		return temp.getValue();
+	}
+}
+
