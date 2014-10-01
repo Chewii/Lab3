@@ -1,50 +1,163 @@
 package simpleCounter;
 
-
 public class TestCounter {
 
+		
 	public static void main(String[] args){
-
-		System.out.println("Räknare 1 ger : " + counter1());
-		System.out.println("Räknare 2 ger : " + counter2());
-		System.out.println("Räknare 3 ger : " + counter3());
-		CounterModel temp = new CounterModel();
-		System.out.println("Antal räknare : " + temp.getNbrOfCounter());
-
-	
-	}
-	public static int counter1(){
-		
-		CounterModel temp = new CounterModel();
-		temp.decrement();
-		temp.increment();		
-		temp.increment();		
-		temp.increment();
-		System.out.println(temp.toString());
-		return temp.getValue();
-	}
-	
-	public static int counter2(){
-		
-		CounterModel temp = new CounterModel();
-		temp.decrement();
-		temp.increment();		
-		temp.reset();
-		temp.decrement();
-		temp.decrement();
-		return temp.getValue();
-	}
-	
-	public static int counter3(){
-		
-		CounterModel temp = new CounterModel();
-		temp.decrement();
-		temp.increment();		
-		temp.increment();		
-		temp.increment();
-		temp.reset();
+		counter1();
 		counter2();
+		counter3(); //testar olika varianter av counters.
+		getNbrOfCounterTester();//Testar antalet counters 
+		equalTester();	//testar equals
+		constructorTest(); //Testar constructors
+		toStringTest(); //Testar toString metoden.
+		listNewCounterModels();//Gör nya objekt
+		CounterModel temp = new CounterModel();
+		//getCounterModel(temp);
+		FastCounter trg = new FastCounter();
+	}
+	
+	public static void getNbrOfCounterTester(){	//Testar om antalet counters fungerar (improve)
+		CounterModel x = new CounterModel();
+		if(x.getNbrOfCounter() != 4){
+			System.out.println("Error getNbrOfCounter: found " + x.getNbrOfCounter() + ", expected 4");		
+		}
+		
+	}
+	
+	public static void equalTester(){ //testar equals
+		CounterModel x = new CounterModel(5);
+		CounterModel y = new CounterModel(5);
+		CounterModel z = new CounterModel(1);
+		CounterModel w = new CounterModel(75);  
+		Object v = new CounterModel(75); 	
+		//testar olika värden på det nyskapade objektet, där värdet tas och blir = modulus i CounterModel
+		
+				if (!x.equals(y)) {
+					System.out.println("Error Equals: Error 1.0");
+				}
+				
+				if ( !w.equals(v)  ) {
+					System.out.println("Error Equals: Error 2.0");
+				}
+				
+				if ( !v.equals(w) || w.equals(z)) { 
+					System.out.println("Error Equals: Error 3.0"); 
+				}	
+				try {
+					if ( w.equals(null)  ) { 
+						System.out.println("Error Equals: Error 4,1"); //Null ska inte vara lika med något
+					}
+				} catch (NullPointerException e) {
+					System.out.println("Error Equals: Error 4.2"); //Men null ska fungera.
+				}
+
+		
+	}
+	
+	public static void getCounterModel(CounterModel c){//tar en countermodel och beräknar
+		c.increment();
+		System.out.println(c.toString());
+		
+	}
+	
+	public static int counter1(){ //testar getValue decrement och increment
+		CounterModel temp = new CounterModel();
+		temp.decrement();
+		temp.increment();		
+		temp.increment();		
+		temp.increment();
+		temp.increment();		
+		temp.increment();		
+		temp.increment();		
+		temp.increment();		
+		temp.increment();		
+		temp.increment();		
+		temp.increment();		
+		temp.increment();		
+		temp.increment();
+		temp.increment();
+		if(temp.getValue() != 2){
+			System.out.print("Error getValue: found " + temp.getValue() + ", expected 2");
+		}
 		return temp.getValue();
+	}
+	
+	public static int counter2(){//testar getValue decrement och increment
+		CounterModel temp = new CounterModel();
+		temp.decrement();
+		temp.increment();		
+		temp.reset();
+		temp.decrement();
+		temp.decrement();
+		if(temp.getValue() != 8){
+			System.out.println("Error getValue: found " + temp.getValue() + ", expected 8");
+		}
+		return temp.getValue();
+	}
+	
+	public static int counter3(){//testar getValue decrement och increment
+		counter2();
+		CounterModel temp = new CounterModel();
+		temp.decrement();
+		temp.increment();		
+		temp.increment();		
+		temp.increment();
+		temp.reset();
+		if(temp.getValue() != 0){
+			System.out.println("Error getValue: found " + temp.getValue() + ", expected 0");
+		}
+
+		return temp.getValue();
+	}
+	
+	public static void constructorTest(){//testar constructors i CounterModel
+		CounterModel a = new CounterModel();
+		CounterModel b = new CounterModel(4);
+		CounterModel c = new CounterModel(0);
+		
+		if(a.getModulus()!=10){
+			System.out.println("Error constructorTest: found " + a.getModulus() + ", expected 10" );
+		}
+		if(b.getModulus()!=4){
+			System.out.println("Error constructorTest: found " + b.getModulus() + ", expected 4" );
+		}
+		if(c.getModulus()!=0){
+			System.out.println("Error constructorTest: found " + c.getModulus() + ", expected 0" );
+			
+		}
+		try{
+			CounterModel d = new CounterModel(-1);
+			d.getModulus();
+		}catch(IllegalArgumentException e){
+			
+		}
+		
+		
+	}
+
+	public static void toStringTest(){ //Kollar toString om frasen är som den ska (improve)
+		CounterModel a = new CounterModel();
+		
+		if(a.toString().indexOf("%") == -1){
+			System.out.println("Error toString: Text phrase not valid");
+		}
+		
+		
+		String stemp = a.toString().substring(0, a.toString().indexOf("%"));
+		stemp = stemp + a.toString().substring(a.toString().indexOf("%"));
+		stemp = String.valueOf(stemp);
+		
+		if(!stemp.equals(a.getValue() + "%" + a.getModulus())){ //blir alltid true??
+			System.out.println("Error toString: Text phrase not valid");		
+		}
+	}
+
+	public static void listNewCounterModels(){ //gör nya countermodel objekt
+		CounterModel[] listOfCounters = new CounterModel[20];
+		for(int i = 0; i < listOfCounters.length; i++){
+			listOfCounters[i] = new CounterModel();	
+		}	
 	}
 }
 
