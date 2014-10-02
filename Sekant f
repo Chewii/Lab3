@@ -1,0 +1,27 @@
+package Uppgift2;
+
+public class f implements Function {
+	public static void main(String[] args){
+		
+		test();
+	}
+	
+	public static void test (){ //x^2-2
+		//x = (b*f(a) - a*f(b))/(f(a)-f(b))
+		// a = 0, b = 1000
+		double x;
+		double a = 0;
+		double b = 100;
+		x = ((b*((a*a)-2) - a*((b*b)-2)) / (((a*a)-2) - ((b*b)-2)));
+		System.out.println(x);
+		
+	}
+	@Override
+	public double f(double x) {
+		
+		
+		
+		return 0;
+	}
+
+}
