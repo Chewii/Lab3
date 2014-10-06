@@ -1,0 +1,85 @@
+package Uppgift2;
+
+public class TestaSecant {
+	public static void main(String[] args){
+		Function f;
+		final double eps = 0.0000000001;
+		try{
+			f = new Function(){ //x^2-0.6
+				public double f(double x){
+					return (x*x)-0.6;
+				}
+				public String toString(){
+					return "OK: \"x*x-0.6\" \t\t:         ±";
+				}	
+			};
+			System.out.println(f.toString() + Secant.secant(f,0.0,5.0,eps));
+		}catch(IllegalArgumentException e){
+			System.out.println("Finns inga rötter! mellan intervallet ");	
+		}
+		f = new Function(){ //10^-16 * x^2-10^-17
+			public double f(double x){
+				return 1e-16 * (x*x)-1e-17;
+			}
+			public String toString(){
+				return "";	
+			}	
+		};
+		f = new Function(){ //x^2-2
+			public double f(double x){
+				return (x*x)-2;
+			}
+			public String toString(){
+				return "";	
+			}	
+		};
+		f = new Function(){ //x^3-x^2+2x
+			public double f(double x){
+				return (x*x*x)-(x*x)+(2*x);
+			}
+			public String toString(){
+				return "";	
+			}	
+		};
+		f = new Function(){ //(x+10)^2-0.6
+			public double f(double x){ 
+				return (x+10)*(x+10)-0.6;
+			}
+			public String toString(){
+				return "";	
+			}	
+		};
+		f = new Function(){ //ln(x)
+			public double f(double x){ //ln(x)
+				return Math.log(x);
+			}
+			public String toString(){
+				return "";	
+			}	
+		};
+		f = new Function(){ //arctan(x)
+			public double f(double x){ 
+				return Math.atan(x);
+			}
+			public String toString(){
+				return "";	
+			}	
+		};
+		f = new Function(){ //x-2*10^-16
+			public double f(double x){
+				return x-(2*1e-16);
+			}
+			public String toString(){
+				return "";	
+			}	
+		};
+		f = new Function(){ //sin(x)-(x/2)*(x/2)
+			public double f(double x){
+				return Math.sin(x)-(x/2)*(x/2);
+			}
+			public String toString(){
+				return "";	
+			}	
+		};
+	}
+}
