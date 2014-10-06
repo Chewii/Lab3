@@ -1,27 +1,29 @@
 package Uppgift2;
 
-public class f implements Function {
-	public static void main(String[] args){
-		
-		test();
-	}
-	
-	public static void test (){ //x^2-2
-		//x = (b*f(a) - a*f(b))/(f(a)-f(b))
-		// a = 0, b = 1000
-		double x;
-		double a = 0;
-		double b = 100;
-		x = ((b*((a*a)-2) - a*((b*b)-2)) / (((a*a)-2) - ((b*b)-2)));
-		System.out.println(x);
-		
-	}
-	@Override
-	public double f(double x) {
-		
-		
-		
-		return 0;
+public class Secant{
+
+	public static double secant(Function f, double low, double high, double eps) {
+		if((f.f(low)*f.f(high)) < 0){
+			double x = ((high*f.f(low))-(low*f.f(high)))/(f.f(low)-f.f(high));
+
+			if((f.f(x-eps)*f.f(x+eps)) > 0 && f.f(low) < f.f(high)){
+				return secant(f,x,high,eps);
+
+			}else if((f.f(x-eps)*f.f(x+eps)) > 0 && f.f(low) > f.f(high)){
+				return secant(f,low,x,eps);
+
+			}else{
+				return x;
+
+			}	
+
+		}else{
+			throw new IllegalArgumentException("Finns inga rötter!");
+
+		}
 	}
 
 }
+
+//kolla f(a) * f(b) om detta är större än 0 då är det fel! inga rötter!
+//
