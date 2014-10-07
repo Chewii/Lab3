@@ -2,24 +2,26 @@ package Uppgift2;
 
 public class Secant{
 
+	private static boolean hasRoots = false;
 	public static double secant(Function f, double low, double high, double eps) {
-		if((f.f(low)*f.f(high)) < 0){
+		
+		
+		if((f.f(low)*f.f(high)) <= 0 || hasRoots == true){
+			hasRoots = true;
 			double x = ((high*f.f(low))-(low*f.f(high)))/(f.f(low)-f.f(high));
 
-			if((f.f(x-eps)*f.f(x+eps)) > 0 && f.f(low) < f.f(high)){
+			if((f.f(x-eps)*f.f(x+eps)) > 0 && f.f(low) * f.f(x) > 0){
 				return secant(f,x,high,eps);
 
-			}else if((f.f(x-eps)*f.f(x+eps)) > 0 && f.f(low) > f.f(high)){
+			}else if((f.f(x-eps)*f.f(x+eps)) > 0 && f.f(high)*f.f(x) > 0){
 				return secant(f,low,x,eps);
 
 			}else{
-				return x;
-
+				hasRoots = false;
+				return Math.abs(x);
 			}	
-
 		}else{
 			throw new IllegalArgumentException("Finns inga rötter!");
-
 		}
 	}
 
