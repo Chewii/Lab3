@@ -16,9 +16,7 @@ public class CounterModel implements CounterInterface {
 		this.modulus = modulus;
 		if(modulus < 0){
 			throw new IllegalArgumentException("Negative number is not valid!");		
-		}else {
-			getModulus();	
-		}	
+		}
 	}
 
 	public int getModulus(){
@@ -27,7 +25,7 @@ public class CounterModel implements CounterInterface {
 	}
 	
 	public int getNbrOfCounter(){
-		nbrCounters--;
+	//	nbrCounters--;
 		return nbrCounters;
 	}
 	
@@ -57,22 +55,11 @@ public class CounterModel implements CounterInterface {
 		return s;
 	}
 	public boolean equals(Object c){
-		if(c != null){
-		if(c instanceof CounterModel){
+		if(c != null && c.getClass() ==  this.getClass()){
 			CounterModel cm = (CounterModel) c;
-			if(cm.getModulus() == this.getModulus()){
-				return true;
-			}	
-		}		
-	}
+			return cm.getValue() == this.getValue() && cm.getModulus() == this.getModulus();
+		}
 		return false;
 	}
 }
-/* Del(b)
- * k kommer skrivas ut som 5
- * a kommer skrivas ut som 1 eftersom den ökas med ett
- * b kommer skrivas ut som 0 eftersom ett nytt objekt av b kommer ökas med ett och inte själva b.
- * 
- * 
- * 
- * */
+
