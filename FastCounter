@@ -4,39 +4,68 @@ public class FastCounter extends CounterModel {
 	
 	private int nbrOfSteps;
 
-	
+	/**
+	 * Default constructor, sets the max-value to 15 and 
+	 * sets number of steps to 5.
+	 */
 	public FastCounter(){
 		super(15);
 		this.nbrOfSteps = 5;
 	}
 	
+	/**
+	 * A constructor that allows you to change the 
+	 * value of number of steps and the max-value
+	 * @param nbrOfSteps number of steps the counter should take each time you call increment.
+	 * @param modulus the max-value.
+	 */
 	public FastCounter(int nbrOfSteps, int modulus){
 		super(modulus);
 		this.nbrOfSteps = nbrOfSteps;	
 	}
 	
+	/**
+	 * Returns the number of steps.
+	 * @return nbrOfSteps
+	 */
 	public int getnbrOfSteps(){
 		
 		return nbrOfSteps;
 	}
 	
+	/**
+	 * Calls increment as many times as you have defined number of steps.
+	 */
 	public void upMany(){
 		for(int i = 0; this.nbrOfSteps > i; i++){
 			increment();	
 		}
 	}
 	
+	/**
+	 * Calls decrement as many times as you have defined number of steps.
+	 */
 	public void downMany(){	
 			for(int i = 0; this.nbrOfSteps > i; i++){
 				decrement();
 		}
 	}
+	
+	/**
+	 * Returns a string representation of the FastCounter.
+	 * @return s
+	 */
 	public String toString(){
 		String s = "Antal steg: " + String.valueOf(getnbrOfSteps()) ;
 			
 		return s;
 	}
 	
+	/**
+	 * Checks if two FastCounters are the same.
+	 * @return true if c != null && c.getClass() ==  this.getClass()
+	 * 	and fc.getValue() == this.getValue() && fc.getModulus() == this.getModulus() otherwise false
+	 */
 	public boolean equals(Object c){
 		if(c != null && c.getClass() ==  this.getClass()){
 			FastCounter fc = (FastCounter) c;
