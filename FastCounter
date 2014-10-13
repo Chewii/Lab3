@@ -3,70 +3,45 @@ package simpleCounter;
 public class FastCounter extends CounterModel {
 	
 	private int nbrOfSteps;
-	private int modulus;
-	private int counter;
+
 	
 	public FastCounter(){
+		super(15);
 		this.nbrOfSteps = 5;
-		this.modulus = 15;
-		
 	}
 	
-	public FastCounter(int nbrOfSteps){
-		
-		this.nbrOfSteps = nbrOfSteps;
+	public FastCounter(int nbrOfSteps, int modulus){
+		super(modulus);
+		this.nbrOfSteps = nbrOfSteps;	
 	}
+	
 	public int getnbrOfSteps(){
 		
 		return nbrOfSteps;
 	}
 	
 	public void upMany(){
-		counter = (counter + this.nbrOfSteps) % modulus;
-	}
-	
-	public void downMany(){
-		if(counter == 0){
-			counter = modulus - this.nbrOfSteps;			
-			
-		} else{
-			counter = (counter - this.nbrOfSteps);	
+		for(int i = 0; this.nbrOfSteps > i; i++){
+			increment();	
 		}
 	}
 	
-	public int getModulus(){
-		
-		return modulus;		
+	public void downMany(){	
+			for(int i = 0; this.nbrOfSteps > i; i++){
+				decrement();
+		}
 	}
-	
-	public int getValue(){
-		
-		return counter;
-	}
-	public void reset(){
-		
-		counter = 0;
-	}
-	
 	public String toString(){
-		String s = String.valueOf(getValue()) + " % " + getModulus();
+		String s = "Antal steg: " + String.valueOf(getnbrOfSteps()) ;
 			
 		return s;
 	}
 	
 	public boolean equals(Object c){
-		if(c != null){
-		if(c instanceof FastCounter){
-			FastCounter cm = (FastCounter) c;
-			if(cm.getnbrOfSteps() == this.getnbrOfSteps()){
-				return true;
-			}	
-		}		
-	}
+		if(c != null && c.getClass() ==  this.getClass()){
+			FastCounter fc = (FastCounter) c;
+			return fc.getValue() == this.getValue() && fc.getModulus() == this.getModulus();
+		}
 		return false;
-}
-
-
-		
-	
+	}
 }
