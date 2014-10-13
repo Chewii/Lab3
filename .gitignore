@@ -1,38 +1,64 @@
 package simpleCounter;
-
+/**
+ * 
+ * @author Rasmus Davidsson and Anton Solback
+ *
+ */
 
 public class CounterModel implements CounterInterface {
 
 	private int counter = 0;
 	private static int nbrCounters = 0;
 	private int modulus;		
-		
+	
+	/**
+	 * Default constructor, sets max-value(modulus) to 10.
+	 */
 	public CounterModel(){
 		this.modulus = 10;
 		nbrCounters ++;
 	}
 	
+	/**
+	 * A constructor that takes one parameter.
+	 * @param modulus sets the max-value of the counter
+	 * @throws IllegalArgumentException if you set the max-value less than 0.
+	 */
 	public CounterModel(int modulus){
 		this.modulus = modulus;
 		if(modulus < 0){
 			throw new IllegalArgumentException("Negative number is not valid!");		
 		}
 	}
-
+	
+	/**
+	 * Returns the max-value of the counter.
+	 * @return modulus
+	 */
 	public int getModulus(){
 		
 		return modulus;		
 	}
 	
+	/**
+	 * Returns the numbers of CounterModels created.
+	 * @return nbrCounters
+	 */
 	public int getNbrOfCounter(){
 	//	nbrCounters--;
 		return nbrCounters;
 	}
 	
+	/**
+	 * Increments the value of the counter.
+	 */
 	public void increment() {
 		counter = (counter+1) % modulus;
 	}
-
+	
+	/**
+	 * Decrements the value of the counter.
+	 */
 	public void decrement() {
 		if(counter == 0){
 			counter = modulus-1;
@@ -41,19 +67,38 @@ public class CounterModel implements CounterInterface {
 			counter = (counter-1);
 		}
 	}
-
+	
+	/**
+	 * Resets the value of the counter to 0.
+	 */
 	public void reset() {
 		counter = 0;
 	}
 
+	/**
+	 * Returns the current value of the counter
+	 * @return counter
+	 */
 	public int getValue() {
 		
 		return counter;
 	}
+	
+	/**
+	 * Creates a string representation of the counter
+	 *  @return s
+	 */
 	public String toString(){
 		String s = String.valueOf(getValue()) + "%" + String.valueOf(getModulus());
 		return s;
 	}
+	
+	/**
+	 * Checks whether another CounterModel and the 
+	 * current model are equal.
+	 * @return true if c != null && c.getClass() ==  this.getClass() and 
+	 * 		cm.getValue() == this.getValue() && cm.getModulus() == this.getModulus() otherwise false
+	 */
 	public boolean equals(Object c){
 		if(c != null && c.getClass() ==  this.getClass()){
 			CounterModel cm = (CounterModel) c;
