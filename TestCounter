@@ -4,6 +4,7 @@ public class TestCounter {
 
 		
 	public static void main(String[] args){
+
 		counter1();
 		counter2();
 		counter3(); //testar olika varianter av counters.
@@ -14,17 +15,26 @@ public class TestCounter {
 		listNewCounterModels();//Gör nya objekt
 		CounterModel temp = new CounterModel();
 		//getCounterModel(temp);
-		FastCounter trg = new FastCounter();
+		FastCounter trg = new FastCounter(1,3);
+		trg.downMany();
+
+
 	}
 	
-	public static void getNbrOfCounterTester(){	//Testar om antalet counters fungerar (improve)
+	/**
+	 * Test if the variable nbrCounters works
+	 */
+	public static void getNbrOfCounterTester(){	//Testar om antalet counters fungerar
 		CounterModel x = new CounterModel();
-		if(x.getNbrOfCounter() != 4){
+		if(x.getNbrOfCounter() != 5){
 			System.out.println("Error getNbrOfCounter: found " + x.getNbrOfCounter() + ", expected 4");		
 		}
 		
 	}
 	
+	/**
+	 * Tests the method .equals() in CounterModel
+	 */
 	public static void equalTester(){ //testar equals
 		CounterModel x = new CounterModel(5);
 		CounterModel y = new CounterModel(5);
@@ -32,7 +42,6 @@ public class TestCounter {
 		CounterModel w = new CounterModel(75);  
 		Object v = new CounterModel(75); 	
 		//testar olika värden på det nyskapade objektet, där värdet tas och blir = modulus i CounterModel
-		
 				if (!x.equals(y)) {
 					System.out.println("Error Equals: Error 1.0");
 				}
@@ -51,16 +60,22 @@ public class TestCounter {
 				} catch (NullPointerException e) {
 					System.out.println("Error Equals: Error 4.2"); //Men null ska fungera.
 				}
-
-		
 	}
 	
+	/**
+	 * Takes a CounterModel as parameter and calls .toString().
+	 * @param c a CounterModel
+	 */
 	public static void getCounterModel(CounterModel c){//tar en countermodel och beräknar
-		c.increment();
+		
 		System.out.println(c.toString());
 		
 	}
 	
+	/**
+	 * Tests the methods .increment(), .decrement() and .getValue().
+	 * @return getValue()
+	 */
 	public static int counter1(){ //testar getValue decrement och increment
 		CounterModel temp = new CounterModel();
 		temp.decrement();
@@ -83,6 +98,10 @@ public class TestCounter {
 		return temp.getValue();
 	}
 	
+	/**
+	 * Tests the methods .increment(), .decrement() and .getValue().
+	 * @return getValue()
+	 */
 	public static int counter2(){//testar getValue decrement och increment
 		CounterModel temp = new CounterModel();
 		temp.decrement();
@@ -96,6 +115,10 @@ public class TestCounter {
 		return temp.getValue();
 	}
 	
+	/**
+	 * Tests the methods .increment(), .decrement() and .getValue().
+	 * @return getValue()
+	 */
 	public static int counter3(){//testar getValue decrement och increment
 		counter2();
 		CounterModel temp = new CounterModel();
@@ -111,6 +134,9 @@ public class TestCounter {
 		return temp.getValue();
 	}
 	
+	/**
+	 * Tests the constructor in CounterModel
+	 */
 	public static void constructorTest(){//testar constructors i CounterModel
 		CounterModel a = new CounterModel();
 		CounterModel b = new CounterModel(4);
@@ -130,13 +156,16 @@ public class TestCounter {
 			CounterModel d = new CounterModel(-1);
 			d.getModulus();
 		}catch(IllegalArgumentException e){
-			
+			System.out.println("");
 		}
 		
 		
 	}
-
-	public static void toStringTest(){ //Kollar toString om frasen är som den ska (improve)
+	
+	/**
+	 * Tests the .toString() method in CounterModel.
+	 */
+	public static void toStringTest(){ //Kollar toString om frasen är som den ska
 		CounterModel a = new CounterModel();
 		
 		if(a.toString().indexOf("%") == -1){
@@ -148,16 +177,38 @@ public class TestCounter {
 		stemp = stemp + a.toString().substring(a.toString().indexOf("%"));
 		stemp = String.valueOf(stemp);
 		
-		if(!stemp.equals(a.getValue() + "%" + a.getModulus())){ //blir alltid true??
+		if(!stemp.equals(a.getValue() + "%" + a.getModulus())){ 
 			System.out.println("Error toString: Text phrase not valid");		
 		}
 	}
-
+	
+	/**
+	 * Creates a list of counters and then calls getCounterModel to print the value.
+	 */
 	public static void listNewCounterModels(){ //gör nya countermodel objekt
-		CounterModel[] listOfCounters = new CounterModel[20];
+		CounterModel[] listOfCounters = new CounterModel[4];
 		for(int i = 0; i < listOfCounters.length; i++){
 			listOfCounters[i] = new CounterModel();	
-		}	
+		}
+		
+		listOfCounters[0].increment();
+		listOfCounters[0].increment();
+		
+		listOfCounters[1].decrement();
+		
+		listOfCounters[2].decrement();
+		listOfCounters[2].reset();
+		
+		listOfCounters[3].increment();
+		listOfCounters[3].increment();
+		listOfCounters[3].decrement();
+		
+		getCounterModel(listOfCounters[0]);
+		getCounterModel(listOfCounters[1]);
+		getCounterModel(listOfCounters[2]);
+		getCounterModel(listOfCounters[3]);
+		
+		
 	}
 }
 
