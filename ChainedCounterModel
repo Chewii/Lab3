@@ -1,0 +1,39 @@
+package simpleCounter;
+
+
+public class ChainedCounterModel extends CounterModel {
+
+	private CounterInterface next;
+	private int init;
+
+	//Constructor
+	/**
+	 * The constructor for the ChainedCounterModel.
+	 * @param init the start-value of the counter
+	 * @param modulus the max-value of the counter
+	 * @param next a counterInterface 
+	 */
+	public ChainedCounterModel(int init, int modulus, CounterInterface next){
+
+		super(modulus);
+
+		this.next = next;
+		this.init = init;
+		for(int i = 0; i < init; i++){
+
+			super.increment();
+		}
+	}
+	
+	/**
+	 * Increments the value of the chainedCounterModel.
+	 */
+	public void increment(){
+
+		super.increment();
+		
+		if(next != null && getValue() == 0){
+			next.increment();	
+		}
+	}
+}
